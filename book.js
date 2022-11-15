@@ -1,6 +1,6 @@
 function saveToLocalStorage(event)
 {
-    // const name = document.getElementById('name').value;
+    //  const name = document.getElementById('name').value;
     // console.log(name);
     // const email = document.getElementById('email').value;
     // console.log(email);
@@ -13,21 +13,31 @@ function saveToLocalStorage(event)
     //Now try storing the user details as an object in the local storage. 
     event.preventDefault();//its stoping the unnecessary reloading page
 
+    const name = event.target.username.value;
+    const email = event.target.emailid.value;
+    const phone = event.target.phoneNumber.value;
+    const  date = event.target.date.value;
+    
 
-    let myobj ={
-         name : event.target.username.value,
-        email : event.target.emailid.value,
-        phone : event.target.phoneNumber.value
+    const obj ={
+         name ,
+        email ,
+        phone ,
+        date
     }
     
-    let myobj_serialized = JSON.stringify(myobj);
-    localStorage.setItem("myobj" , myobj_serialized);
-    let myobj_deserialized = JSON.parse(localStorage.getItem("myobj"));
-    console.log(myobj_deserialized);
+    localStorage.setItem(obj.email,JSON.stringify(obj))
     
+    showNewUserOnScreen( obj )
     
-    // localStorage.setItem('name',name);
-    // localStorage.setItem('email',email);
-    // localStorage.setItem('phone',phone);
+
+    
 
 }
+function showNewUserOnScreen(user)
+{
+    const parentNode = document.getElementById('listOfUsers');
+    const childHTML = `<li> ${user.name}-${user.email} </li>`
+    parentNode.innerHTML = parentNode.innerHTML + childHTML;
+}
+
